@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pokédle — Classic</title>
+  <title>Pokédle</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fredoka+One&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -545,7 +545,7 @@
       .th-cell { font-size: .85rem; padding: 10px 8px; }
     }
 
-    /* Tablet landscape / small laptop (768px - 1024px) */
+    /* Tablet landscape / small laptop (768px–1024px) */
     @media (max-width: 1024px) and (min-width: 701px) {
       .page { max-width: 100%; padding: 16px 12px 60px; }
       .table-header-row, .guess-row {
@@ -560,59 +560,105 @@
       .logo { font-size: .75rem; }
     }
 
-    /* Tablet portrait / large phone (481px - 700px) */
+    /* Mobile (max 700px) — horizontal scroll so tiles never crush */
     @media (max-width: 700px) {
-      .page { padding: 12px 8px 60px; }
-      .table-header-row, .guess-row {
-        grid-template-columns: 56px repeat(7, 1fr);
-        gap: 4px;
+      .page { padding: 10px 0 60px; }
+
+      /* Header */
+      .site-header { padding: 0 12px; margin-bottom: 12px; }
+      .logo { font-size: .6rem; }
+      .streak-chip { font-size: .42rem; padding: 5px 9px; gap: 5px; }
+      .streak-chip strong { font-size: .58rem; }
+      .icon-btn { width: 30px; height: 30px; font-size: .85rem; }
+
+      /* Input card */
+      .input-card { margin: 0 12px 12px; padding: 10px 12px; gap: 8px; border-radius: 16px; }
+      .guess-label { font-size: .5rem; }
+      .pokemon-input { font-size: .9rem; padding: 9px 12px; }
+      .hint-progress { font-size: .42rem; padding: 6px 9px; }
+      .hint-progress .big { font-size: .95rem; }
+      .hint-earn-btn { font-size: .44rem; padding: 6px 10px; }
+
+      /* Hint panel */
+      .hint-panel { margin: 0 12px 12px; }
+      .hint-tab { font-size: .48rem; padding: 9px 6px; }
+
+      /* Scroll container for the whole game table */
+      .game-scroll-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 0 12px 12px;
       }
-      .th-cell { font-size: .55rem; padding: 6px 3px; border-radius: 14px; }
-      .tile { font-size: .42rem; min-height: 60px; padding: 5px 3px; border-radius: 12px; }
-      .guess-img-cell { min-height: 60px; border-radius: 10px; }
-      .guess-img-cell img { width: 42px; height: 42px; }
-      .habitat-tile { min-height: 60px; border-radius: 12px; }
-      .habitat-name { font-size: .42rem; padding: 2px 2px 5px; }
-      .logo { font-size: .65rem; }
-      .streak-chip { font-size: .45rem; padding: 5px 10px; }
-      .input-card { padding: 12px 14px; gap: 10px; }
-      .guess-label { font-size: .52rem; }
-      .hint-progress { font-size: .45rem; padding: 7px 10px; }
-      .hint-earn-btn { font-size: .5rem; padding: 7px 12px; }
-      .modal-title { font-size: 1.2rem; }
-      .modal-box { padding: 28px 20px 22px; }
-      .modal-pokemon img { width: 130px; height: 130px; }
+      .game-scroll-wrap::-webkit-scrollbar { height: 4px; }
+      .game-scroll-wrap::-webkit-scrollbar-thumb { background: rgba(74,144,217,.4); border-radius: 2px; }
+
+      /* Fixed tile sizes so they never compress */
+      .table-header-row,
+      .guess-row {
+        grid-template-columns: 64px repeat(7, 72px);
+        gap: 6px;
+        width: max-content;
+        min-width: 100%;
+      }
+
+      .th-cell {
+        font-size: .58rem;
+        padding: 7px 4px;
+        border-radius: 14px;
+        min-height: 44px;
+        display: flex; align-items: center; justify-content: center;
+        line-height: 1.25;
+      }
+
+      .tile {
+        font-size: .52rem;
+        min-height: 70px;
+        padding: 6px 4px;
+        border-radius: 12px;
+        line-height: 1.4;
+        word-break: normal;
+        overflow-wrap: break-word;
+      }
+      .tile .arrow { font-size: .85rem; }
+
+      .guess-img-cell {
+        min-height: 70px;
+        border-radius: 10px;
+        padding: 3px;
+      }
+      .guess-img-cell img { width: 48px; height: 48px; }
+
+      .habitat-tile {
+        min-height: 70px;
+        border-radius: 12px;
+      }
+      .habitat-name { font-size: .44rem; padding: 2px 3px 6px; }
+
+      .guesses-list { gap: 6px; }
+      .table-header-row { margin-bottom: 8px; }
+
+      /* Empty state */
+      .empty-state { font-size: .55rem; padding: 36px 16px; }
+
+      /* Win modal */
+      .modal-box { padding: 28px 18px 22px; border-radius: 22px; margin: 0 12px; }
+      .modal-title { font-size: 1.15rem; }
+      .modal-guessed-label { font-size: .9rem; }
+      .modal-pokemon img { width: 120px; height: 120px; }
+      .btn-play-again { font-size: .55rem; padding: 13px; }
     }
 
-    /* Small phone (max 480px) */
-    @media (max-width: 480px) {
-      .page { padding: 10px 6px 50px; }
-      .table-header-row, .guess-row {
-        grid-template-columns: 48px repeat(7, 1fr);
-        gap: 3px;
+    /* Extra small phones (max 380px) */
+    @media (max-width: 380px) {
+      .table-header-row,
+      .guess-row {
+        grid-template-columns: 56px repeat(7, 64px);
+        gap: 5px;
       }
-      .th-cell { font-size: .46rem; padding: 5px 2px; border-radius: 12px; line-height: 1.2; }
-      .tile { font-size: .36rem; min-height: 52px; padding: 4px 2px; border-radius: 10px; }
-      .tile .arrow { font-size: .7rem; }
-      .guess-img-cell { min-height: 52px; border-radius: 8px; padding: 2px; }
-      .guess-img-cell img { width: 36px; height: 36px; }
-      .habitat-tile { min-height: 52px; border-radius: 10px; }
-      .habitat-name { font-size: .36rem; padding: 1px 2px 4px; }
-      .logo { font-size: .55rem; }
-      .streak-chip { font-size: .4rem; padding: 4px 8px; gap: 5px; }
-      .streak-chip strong { font-size: .6rem; }
-      .icon-btn { width: 30px; height: 30px; font-size: .85rem; }
-      .input-card { padding: 10px 12px; gap: 8px; border-radius: 16px; }
-      .guess-label { font-size: .45rem; }
-      .pokemon-input { font-size: .85rem; padding: 9px 12px; }
-      .hint-progress { font-size: .4rem; padding: 6px 8px; }
-      .hint-earn-btn { font-size: .42rem; padding: 6px 10px; }
-      .hint-progress .big { font-size: 1rem; }
-      .modal-title { font-size: 1rem; }
-      .modal-box { padding: 24px 16px 18px; border-radius: 20px; }
-      .modal-pokemon img { width: 110px; height: 110px; }
-      .modal-guessed-label { font-size: .85rem; }
-      .btn-play-again { font-size: .52rem; padding: 12px; }
+      .tile { font-size: .46rem; min-height: 62px; }
+      .th-cell { font-size: .5rem; }
+      .guess-img-cell img { width: 42px; height: 42px; }
+      .logo { font-size: .52rem; }
     }
   </style>
 </head>
@@ -667,6 +713,7 @@
   </div>
 
   <!-- TABLE HEADERS -->
+  <div class="game-scroll-wrap">
   <div class="table-header-row">
     <div class="th-cell">Pokémon</div>
     <div class="th-cell">Type 1</div>
@@ -683,6 +730,7 @@
     Who's that Pokémon?<br>Make your first guess!
   </div>
   <div class="guesses-list" id="guessList"></div>
+  </div><!-- end game-scroll-wrap -->
 
 </div>
 
